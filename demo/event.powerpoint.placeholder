@@ -1,0 +1,44 @@
+Event PowerPoint Template
+
+- [ ] Title slide — event title; subtitle
+  - Event: NewOrbitHackathon
+  - Subtitle: MCP + LangChain
+
+- [ ] Schedule — outline of the day
+  - Kickoff and intros
+  - Repo walkthrough and setup
+  - Team formation and scenario selection
+  - Build time
+  - Lunch
+  - Build time
+  - Demos
+  - Wrap-up
+
+- [ ] Goals — learning objectives
+  - Learn how to create an MCP server
+  - Create an agent using LangChain
+  - Solve a problem using an MCP + LangChain agent
+  - Have fun
+
+- [ ] Teams — structure and logistics
+    collabration event( so teams must work together, talk/plan)
+  - 1) Teams of 4–5
+  - 2) Each team has a tech lead (always a NO member)
+  - 3) Tech lead forks the main repo and opens a PR back to main
+  - 4) Tech lead grants access to their forked repo for all team members
+  - 5) We will use Teams breakout rooms like last time
+  - 6) Tech lead ensures the PowerPoint is filled in for the end-of-day demo
+
+- [ ] Intro to the repo — live walkthrough topics
+  - venv
+  - Jupyter Notebook
+  - MCP
+  - AI Foundry
+  - Running the project
+
+- [ ] Demo — guidance
+  - Each team will demo
+  - Make your demo fun
+
+- [ ] Ending slide
+  - Thanks for coming
