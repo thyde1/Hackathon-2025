@@ -31,13 +31,15 @@ You can get these credentials from:
 - Your Azure OpenAI resource in the Azure portal
 
 ### 2. Register Jupyter Kernel (Important!)
-Make sure you have downloaded the offical jupyter extension.
+Make sure you have downloaded the offical [Jupyter VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
 
-**Important:** When the notebook opens, make sure to select the correct kernel:
-1. install the offcial jupyter extention
-1. In the notebook, click on "Kernel" ( top right Python interpretor ) → "Python Environments" 
+**Important:** After opening the notebook file (*.ipynb), make sure to select the correct kernel:
+1. Install the offcial jupyter extention
+1. After opening the notebook file, click on "Select Kernel" and then "Python Environments...":
+   ![alt text](images/image.png)
 2. Select "Create Python Environment"
 3. Select "venv` → Choose lastest python"
+4. Select ok on the prompt
 4. This ensures you're using the local virtual environment, not a global one
 
 This will create a virtual environment and start installing dependencies.
@@ -63,8 +65,6 @@ cd ../../mcp/weather-mcp
 uv run main.py
 ```
 The server should start on `http://localhost:8009/mcp/` for weather
-
-
 
 ### 4. Running the Notebook
 
