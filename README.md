@@ -29,8 +29,8 @@ Direct component READMEs:
 
 ### End-of-day demo
 At the end of the day, each team will demo what they built. There are simple slide templates in `demo/` to help you prepare:
-- Team demo template: [demo/demo.powerpoint.placeholder](demo/demo.powerpoint.placeholder)
-- Event deck template: [demo/event.powerpoint.placeholder](demo/event.powerpoint.placeholder)
+- Team demo template: `demo/demo_template 1.pptx`
+- Team demo example: `demo/example/demo.pptx`
 
 ### Helpful links
 - Day schedule: [HACKATHON_SCHEDULE.md](HACKATHON_SCHEDULE.md)

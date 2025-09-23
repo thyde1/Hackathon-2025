@@ -1,6 +1,6 @@
 # Attractions Booking Agent
 
-This notebook demonstrates a LangChain agent integrated with MCP (Model Context Protocol) tools for searching and booking tourist attractions and also getting the. The agent uses Azure OpenAI and can help users discover attractions worldwide and make bookings, whilst checking the weather.
+This notebook demonstrates a LangChain agent integrated with MCP (Model Context Protocol) tools for searching and booking tourist attractions. The agent uses Azure OpenAI and can help users discover attractions worldwide and make bookings, whilst checking the weather.
 
 ## Prerequisites
 
@@ -11,6 +11,9 @@ This notebook demonstrates a LangChain agent integrated with MCP (Model Context 
 - Access to the MCP attractions/weather server (running on localhost:8008 & 8009)
 - vs code
 - jupyter extention - https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter
+- node Version > 16 (use nvm if needing to keep node versions)
+
+**Important:** if your not using VS code for whatever reason, some aspects of the of runbook may be difer, so i suggest using VS Code
 
 ## Setup Instructions
 
@@ -78,6 +81,10 @@ python: c:\WorkSpace\Hackathon\Hackathon-2025\.venv\Scripts\python.exe
 After a successful run you should get a little box appear at the top of vs code, you an enter in your questions or type exist to end the run(you will find some example questions at the bottom of the runbook).
 
 ## How to Use the Notebook
+
+You can hit `run all` at the top of the notebook, or you can run the cells 1 by 1, you will see the output of each cell underneath the cell once it has been executed.
+
+**Important:** Make sure to re-run all when changing config in env files.
 
 The notebook is structured in sequential cells that should be run in order:
 
