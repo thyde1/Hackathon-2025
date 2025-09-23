@@ -7,7 +7,7 @@ This notebook demonstrates a LangChain agent integrated with MCP (Model Context 
 - Python - latest
 - [uv](https://docs.astral.sh/uv/) package manager
 - Jupyter Notebook or JupyterLab
-- Azure OpenAI account and API access
+- Azure OpenAI account with deployment of a chat completion model
 - Access to the MCP attractions/weather server (running on localhost:8008 & 8009)
 - vs code
 - jupyter extention - https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter
@@ -23,7 +23,7 @@ Create a `.env` file in this directory with your Azure OpenAI credentials and mc
 ```env
 AZURE_OPENAI_ENDPOINT=
 AZURE_OPENAI_API_KEY=
-AZURE_API_VERSION=
+AZURE_API_VERSION=2024-12-01-preview
 DEPLOYMENT_NAME=
 ATTRACTIONS_MCP_URL=http://127.0.0.1:8008/mcp/
 WEATHER_MCP_URL=http://127.0.0.1:8009/mcp/
@@ -32,17 +32,18 @@ WEATHER_MCP_URL=http://127.0.0.1:8009/mcp/
 You can get these credentials from:
 - Azure OpenAI service → Azure AI Foundry Portal
 - Your Azure OpenAI resource in the Azure portal
+- Overview tab for endpoint, API key (selecting "Azure AI Services" tab within "Libraries")
 
 ### 2. Register Jupyter Kernel (Important!)
 Make sure you have downloaded the offical [Jupyter VS Code extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
 
 **Important:** After opening the notebook file (*.ipynb), make sure to select the correct kernel:
-1. Install the offcial jupyter extention
+1. Install the offcial jupyter extension
 1. After opening the notebook file, click on "Select Kernel" and then "Python Environments...":
    ![alt text](images/image.png)
 2. Select "Create Python Environment"
 3. Select "venv` → Choose lastest python"
-4. Select ok on the prompt
+4. Select the one `src\agent\requirements.txt` dependencies to install. Select ok on the prompt.
 4. This ensures you're using the local virtual environment, not a global one
 
 This will create a virtual environment and start installing dependencies.
@@ -75,10 +76,11 @@ Open and run the Jupyter notebook:
 
 You can verify the correct environment by running Cell 0 - it should show:
 ```
-python: c:\WorkSpace\Hackathon\Hackathon-2025\.venv\Scripts\python.exe
+python: *CodeDirectory*\Hackathon\Hackathon-2025\.venv\Scripts\python.exe
+uv: *Python install location*\Python313\Scripts\uv.EXE
 ```
 
-After a successful run you should get a little box appear at the top of vs code, you an enter in your questions or type exist to end the run(you will find some example questions at the bottom of the runbook).
+After a successful run of entire notebook you should get a little box appear at the top of vs code, you an enter in your questions or type exist to end the run(you will find some example questions at the bottom of the runbook).
 
 ## How to Use the Notebook
 
