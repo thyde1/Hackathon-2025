@@ -39,6 +39,7 @@ print("✅ Updated imports with official MCP adapter loaded successfully!")
 # MCP Client Setup using Official Adapter with HTTP Transport
 import subprocess
 import time
+from fastapi.responses import FileResponse
 
 
 @asynccontextmanager
@@ -62,3 +63,7 @@ class Item(BaseModel):
 @app.post("/")
 async def send_message(item: Item):
     return await ask_assistant(item.message)
+
+@app.get("/")
+async def root():
+    return FileResponse("chat.html")
