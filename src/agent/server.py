@@ -63,6 +63,10 @@ async def create_mcp_tools():
             "endorsements": {
                 "transport": "streamable_http",
                 "url": os.getenv("ENDORSEMENTS_MCP_URL")
+            },
+            "persist_packing_list": {
+                "transport": "streamable_http",
+                "url": os.getenv("PERSIST_PACKING_LIST_MCP_URL")
             }
         })
         
