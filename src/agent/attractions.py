@@ -1,7 +1,7 @@
 # Step to ensure that the venv is being used for the project not local copies, should point at .venv in project.
 import sys, shutil
 print("python:", sys.executable)
-print("uv:", shutil.which("uv")) 
+print("uv:", shutil.which("uv"))
 
 # LangChain + MCP Setup for Attractions Booking (HTTP-based for Jupyter)
 import os
@@ -37,7 +37,7 @@ mcp_client = None
 async def create_mcp_tools():
     """Create MCP tools using the official LangChain MCP adapter with HTTP transport"""
     global mcp_client
-    
+
     try:
         # Create MultiServerMCPClient with streamable_http transport
         mcp_client = MultiServerMCPClient({
@@ -56,14 +56,18 @@ async def create_mcp_tools():
             "endorsements": {
                 "transport": "streamable_http",
                 "url": os.getenv("ENDORSEMENTS_MCP_URL")
+            },
+            "persist": {
+                "transport": "streamable_http",
+                "url": os.getenv("PERSIST_PACKING_LIST_MCP_URL")
             }
         })
-        
+
         # Get tools from the MCP server
         tools = await mcp_client.get_tools()
         print(f"Loaded {len(tools)} MCP tools: {[tool.name for tool in tools]}")
         return tools
-        
+
     except Exception as e:
         print(f"Error connecting to MCP HTTP server: {e}")
         return []
@@ -77,41 +81,41 @@ print("🛠️ Ready to load MCP tools via official adapter!")
 
 async def setup_agent():
     """Setup LangChain agent with MCP tools using official adapter"""
-    
+
     # Initialize LLM for Azure OpenAI
     # can get this from Azure Open Ai service -> Azure Ai Foundary Portal
     from langchain_openai import AzureChatOpenAI
-    
+
     llm = AzureChatOpenAI(
         deployment_name=os.getenv("DEPLOYMENT_NAME"),  # Your Azure deployment name
         api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-        azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"), 
-        api_version=os.getenv("AZURE_API_VERSION"), 
+        azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+        api_version=os.getenv("AZURE_API_VERSION"),
         temperature=1
     )
-    
+
     # Load MCP tools using official adapter
     tools = await create_mcp_tools()
-    
+
     if not tools:
         print("No MCP tools loaded. Make sure the MCP server is accessible.")
         return None
-    
+
     print(f"Loaded {len(tools)} MCP tools: {[tool.name for tool in tools]}")
-    
+
     # Create system prompt
     system_prompt = """You are a helpful travel assistant that can help users find and book attractions including weather.
-    
+
     You have access to multiple MCP tools for tourist attractions, including:
     - Searching for attractions by location and category
     - Getting detailed attraction information
     - Booking attractions for visitors
     - Getting random attraction suggestions
     - And more...
-    
+
     When users ask about travel plans, use these tools to provide comprehensive information.
     Always be helpful and provide practical advice.
-    
+
     You are also able to generate packing lists based on a given activity. When asked to create a packing list, you
     should also ask the user about the location of their trip, and then check the weather there in order to generate
     a better-tailored list.
@@ -119,7 +123,7 @@ async def setup_agent():
     You are also able to accept endorsements from users for this service. You should prompt users
     to give endorsements after you have spoken to them. You should give the users the list of endorsers if you ask for it.
     """
-    
+
     # Create prompt template
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
@@ -127,7 +131,7 @@ async def setup_agent():
         ("human", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ])
-    
+
     # Create agent
     agent = create_tool_calling_agent(llm, tools, prompt)
 
@@ -136,7 +140,7 @@ async def setup_agent():
 
     # Create agent executor with tool logging callback and verbose output
     agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
-    
+
     return agent_executor
 
 # Initialize the agent (now async)
@@ -159,7 +163,7 @@ async def process_user_input(user_input: str) -> str:
     """Process user input and return LLM response using MCP tools"""
     if not agent_executor:
         return "Agent not initialized. Please run the initialization cell first."
-    
+
     try:
         # Use the agent to process the input and get intermediate steps
         result = await agent_executor.ainvoke({"input": user_input})
@@ -195,7 +199,7 @@ async def ask_assistant(question: str):
     """Easy-to-use function for asking the travel assistant"""
     print(f"🧳 User: {question}")
     print("🤖 Assistant:")
-    
+
     response = await process_user_input(question)
     print(response)
     return response

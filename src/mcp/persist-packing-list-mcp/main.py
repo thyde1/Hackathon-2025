@@ -18,8 +18,8 @@ mcp = FastMCP("Persist Packing List", port=8011)
 # Packing List Management Tools
 
 # Get a packing list (resource)
-@mcp.resource("persist-packing-list://get")
-def get_packing_list() -> str:
+@mcp.tool()
+def retrieve_saved_packing_list() -> str:
     """Retrieve the current packing list in a markdown format"""
     try:
         with open(PACKING_LIST_FILE, "r", encoding="utf-8") as file:
@@ -30,7 +30,7 @@ def get_packing_list() -> str:
 
 # Upsert a packing list (tool)
 @mcp.tool()
-def upsert_packing_list(content: str) -> Dict[str, Any]:
+def update_saved_packing_list(content: str) -> Dict[str, Any]:
     """Create or update the packing list with the provided content
 
     Args:
