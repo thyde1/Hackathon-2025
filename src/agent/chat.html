@@ -9,16 +9,80 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
+        }        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .background-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: slideshow 20s infinite;
+        }
+
+        .background-slide:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            animation-delay: 0s;
+        }
+
+        .background-slide:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            animation-delay: 4s;
+        }
+
+        .background-slide:nth-child(3) {
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            animation-delay: 8s;
+        }
+
+        .background-slide:nth-child(4) {
+            background-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            animation-delay: 12s;
+        }
+
+        .background-slide:nth-child(5) {
+            background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            animation-delay: 16s;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.7) 0%, rgba(78, 205, 196, 0.7) 50%, rgba(69, 183, 209, 0.7) 100%);
+            z-index: -1;
+        }
+
+        @keyframes slideshow {
+            0% { opacity: 0; }
+            5% { opacity: 1; }
+            20% { opacity: 1; }
+            25% { opacity: 0; }
+            100% { opacity: 0; }
         }
 
         .chat-container {
@@ -31,13 +95,12 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }        .chat-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 50%, #ff6b9d 100%);
             color: white;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
         }
 
         .chat-header h1 {
@@ -86,12 +149,11 @@
             border-radius: 18px;
             word-wrap: break-word;
             line-height: 1.4;
-        }
-
-        .message.user .message-content {
+        }        .message.user .message-content {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .message.assistant .message-content {
@@ -121,10 +183,9 @@
             font-size: 16px;
             outline: none;
             transition: border-color 0.3s ease;
-        }
-
-        .message-input:focus {
+        }        .message-input:focus {
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .message-input:disabled {
@@ -199,16 +260,16 @@
             body {
                 padding: 10px;
             }
-            
+
             .chat-container {
                 height: 90vh;
                 border-radius: 15px;
             }
-            
+
             .chat-messages {
                 padding: 15px;
             }
-            
+
             .message {
                 max-width: 90%;
             }
@@ -234,11 +295,20 @@
     </style>
 </head>
 <body>
+    <div class="background-slideshow">
+        <div class="background-slide"></div>
+        <div class="background-slide"></div>
+        <div class="background-slide"></div>
+        <div class="background-slide"></div>
+        <div class="background-slide"></div>
+    </div>
+    <div class="background-overlay"></div>
+
     <div class="chat-container">
         <div class="chat-header">
-            <h1>🤖 Travel Legend</h1>
+            <h1>🥓 Travel Legend</h1>
         </div>
-        
+
         <div class="chat-messages" id="chatMessages">
             <div class="message assistant">
                 <div class="message-content">
@@ -246,18 +316,18 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="loading" id="loadingIndicator">
             <span>AI is thinking</span>
             <span class="loading-dots"></span>
         </div>
-        
+
         <div class="chat-input">
             <form class="input-form" id="chatForm">
-                <input 
-                    type="text" 
-                    class="message-input" 
-                    id="messageInput" 
+                <input
+                    type="text"
+                    class="message-input"
+                    id="messageInput"
                     placeholder="Type your message here..."
                     autocomplete="off"
                     required
@@ -277,13 +347,13 @@
                 this.sendButton = document.getElementById('sendButton');
                 this.chatForm = document.getElementById('chatForm');
                 this.loadingIndicator = document.getElementById('loadingIndicator');
-                
+
                 this.isLoading = false;
                 this.apiUrl = 'http://127.0.0.1:8000/';
-                
+
                 this.init();
             }
-            
+
             init() {
                 this.chatForm.addEventListener('submit', (e) => this.handleSubmit(e));
                 this.messageInput.addEventListener('keypress', (e) => {
@@ -292,33 +362,33 @@
                         this.handleSubmit(e);
                     }
                 });
-                
+
                 // Auto-focus on input
                 this.messageInput.focus();
             }
-            
+
             async handleSubmit(e) {
                 e.preventDefault();
-                
+
                 if (this.isLoading) return;
-                
+
                 const message = this.messageInput.value.trim();
                 if (!message) return;
-                
+
                 // Add user message to chat
                 this.addMessage(message, 'user');
-                
+
                 // Clear input and show loading state
                 this.messageInput.value = '';
                 this.setLoadingState(true);
-                
+
                 try {
                     // Send message to API
                     const response = await this.sendMessage(message);
-                    
+
                     // Add AI response to chat
                     this.addMessage(response, 'assistant');
-                    
+
                 } catch (error) {
                     console.error('Chat error:', error);
                     this.showError('Failed to get response from AI. Please try again.');
@@ -326,25 +396,25 @@
                     this.setLoadingState(false);
                 }
             }
-            
+
             async sendMessage(message) {
                 const response = await fetch(this.apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         message: message,
                         timestamp: new Date().toISOString()
                     })
                 });
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const data = await response.json();
-                
+
                 // Handle different response formats
                 if (typeof data === 'string') {
                     return data;
@@ -356,26 +426,26 @@
                     return JSON.stringify(data);
                 }
             }
-            
+
             addMessage(content, sender) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}`;
-                
+
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'message-content';
                 contentDiv.textContent = content;
-                
+
                 messageDiv.appendChild(contentDiv);
                 this.chatMessages.appendChild(messageDiv);
-                
+
                 this.scrollToBottom();
             }
-            
+
             setLoadingState(loading) {
                 this.isLoading = loading;
                 this.sendButton.disabled = loading;
                 this.messageInput.disabled = loading;
-                
+
                 if (loading) {
                     this.loadingIndicator.classList.add('show');
                     this.sendButton.textContent = 'Sending...';
@@ -385,19 +455,19 @@
                     this.messageInput.focus();
                 }
             }
-            
+
             showError(message) {
                 // Remove any existing error messages
                 const existingErrors = document.querySelectorAll('.error-message');
                 existingErrors.forEach(error => error.remove());
-                
+
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'error-message';
                 errorDiv.textContent = message;
-                
+
                 this.chatMessages.appendChild(errorDiv);
                 this.scrollToBottom();
-                
+
                 // Auto-remove error after 5 seconds
                 setTimeout(() => {
                     if (errorDiv.parentNode) {
@@ -405,14 +475,14 @@
                     }
                 }, 5000);
             }
-            
+
             scrollToBottom() {
                 setTimeout(() => {
                     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
                 }, 100);
             }
         }
-        
+
         // Initialize chat when page loads
         document.addEventListener('DOMContentLoaded', () => {
             new AIChat();
