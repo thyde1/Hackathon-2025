@@ -2,6 +2,7 @@
 import sys, shutil
 
 from fastapi import FastAPI
+from pydantic import BaseModel
 print("python:", sys.executable)
 print("uv:", shutil.which("uv")) 
 
@@ -25,6 +26,8 @@ from langchain.memory import ConversationBufferMemory
 # Official MCP adapter imports for HTTP transport
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_mcp_adapters.tools import load_mcp_tools
+
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables
 load_dotenv()
@@ -268,6 +271,17 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class Item(BaseModel):
+    message: str
+
 @app.post("/")
-async def send_message(message: str):
-    return await ask_assistant(message)
+async def send_message(item: Item):
+    return await ask_assistant(item.message)
