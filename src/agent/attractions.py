@@ -237,16 +237,7 @@ async def main():
     await test_mcp_connection()
     # 🚀 EXAMPLE USAGE - Run this cell after setting up your API key!
 
-    # Simple question
-    await ask_assistant("What are some popular attractions in Paris? and what is the weather?")
-    print("\n" + "="*50 + "\n")
-
-    # Example 2: Weather + attractions
-    # await ask_assistant("I'm planning to visit paris tomorrow. What's the weather like and what attractions should I visit?")
-    # print("\n" + "="*50 + "\n")
-
     # Interactive chat loop — keep asking questions until you exit
-    await chat_loop()
 
 # try -
 # give me a random attraction
@@ -257,3 +248,4 @@ async def main():
 if __name__ ==  '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
+    loop.run_until_complete(chat_loop())
