@@ -60,6 +60,10 @@ async def create_mcp_tools():
             "persist": {
                 "transport": "streamable_http",
                 "url": os.getenv("PERSIST_PACKING_LIST_MCP_URL")
+            },
+            "emojifier": {
+                "transport": "streamable_http",
+                "url": os.getenv("EMOJIFIER_MCP_URL")
             }
         })
 
