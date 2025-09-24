@@ -22,12 +22,12 @@ mcp = FastMCP("Packing", port=8010)
 
 # Tools
 @mcp.tool()
-def get_packing_list(
+def get_suggested_packing_list(
     activity: str, 
     cold_threshold_c: int = 10,
     expect_rain: bool = False
 ) -> Dict[str, Any]:
-    """Generate a comprehensive packing list for a specific activity
+    """Generate a comprehensive suggested packing list for a specific activity
     
     Args:
         activity: The activity type (e.g., "day_hike", "beach_trip", "business_travel")
@@ -106,4 +106,4 @@ def packing_assistant_prompt() -> str:
 
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="streamable-http")
